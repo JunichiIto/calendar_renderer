@@ -1,14 +1,54 @@
+require 'date'
+
 class CalendarRenderer
   def render
+    "#{header}#{body}"
+  end
+
+  private
+
+  def header
    <<EOS
      April 2013
 Su Mo Tu We Th Fr Sa
-    1  2  3  4  5  6
- 7  8  9 10 11 12 13
-14 15 16 17 18 19 20
-21 22 23 24 25 26 27
-28 29 30
 EOS
+  end
+
+  def body
+    ret = ""
+    month_table.each do |week|
+      string_array = week.map do |date|
+        date.nil? ? "  " : date.strftime("%e")
+      end
+      ret += "#{string_array.join(' ')}\n"
+    end
+    ret
+  end
+
+  def month_table
+    table = []
+    week = []
+    table << week
+    month_range.each do |date|
+      week[date.wday] = date
+      if (date.wday == 6)
+        week = []
+        table << week
+      end
+    end
+    table
+  end
+
+  def month_range
+    first_date..last_date
+  end
+
+  def first_date
+    Date.new(2013, 4, 1)
+  end
+
+  def last_date
+    Date.new(2013, 4, 30)
   end
 end
 
