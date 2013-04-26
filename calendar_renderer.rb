@@ -13,8 +13,7 @@ class CalendarRenderer
 
   def header
     sun_to_sat = "Su Mo Tu We Th Fr Sa"
-    rtrim = -> str { str.gsub(/\s+$/, '') }
-    month_year = rtrim.call(@first_date.strftime("%B %Y").center(sun_to_sat.size))
+    month_year = @first_date.strftime("%B %Y").center(sun_to_sat.size).rstrip
     "#{month_year}\n#{sun_to_sat}"
   end
 
