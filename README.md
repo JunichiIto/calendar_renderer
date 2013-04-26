@@ -5,8 +5,9 @@ Sample implementation of http://yuji-shimoda.hatenablog.com/entry/2013/04/26/001
 ## Usage
 
 ````
-$ require './calendar_renderer'
-$ puts CalendarRenderer.new(2013,1).render                                             
+# in irb or pry
+> require './calendar_renderer'
+> puts CalendarRenderer.new(2013,1).render                                             
     January 2013
 Su Mo Tu We Th Fr Sa
        1  2  3  4  5
