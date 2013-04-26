@@ -6,7 +6,7 @@ class CalendarRenderer
   end
 
   def render
-    "#{header}\n#{body}"
+    "#{header}\n#{body}\n"
   end
 
   private
@@ -19,14 +19,14 @@ class CalendarRenderer
   end
 
   def body
-    ret = ""
+    ret = []
     month_table.each do |week|
       string_array = week.map do |date|
         date.nil? ? "  " : date.strftime("%e")
       end
-      ret += "#{string_array.join(' ')}\n"
+      ret << "#{string_array.join(' ')}"
     end
-    ret
+    ret.join("\n")
   end
 
   def month_table
