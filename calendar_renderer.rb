@@ -21,13 +21,13 @@ class CalendarRenderer
     to_string_row = -> week {
       week.map {|date| date.nil? ? "  " : date.strftime("%e") }.join(" ")
     }
-    month_table.map {|week| to_string_row.call(week) }.join("\n")
+    weeks_in_month.map {|week| to_string_row.call(week) }.join("\n")
   end
 
-  def month_table
-    dates_in_month.inject([]) {|table, date|
-      table << [] if table.empty? or date.sunday?
-      table.tap {|t| t.last[date.wday] = date }
+  def weeks_in_month
+    dates_in_month.inject([]) {|weeks, date|
+      weeks << [] if weeks.empty? or date.sunday?
+      weeks.tap {|week| week.last[date.wday] = date }
     }
   end
 
