@@ -25,15 +25,15 @@ class CalendarRenderer
   end
 
   def month_table
-    month_range.to_a.inject([]) {|table, date|
+    dates_in_month.inject([]) {|table, date|
       table << [] if table.empty? or date.sunday?
       table.tap {|t| t.last[date.wday] = date }
     }
   end
 
-  def month_range
+  def dates_in_month
     last_date = @first_date.next_month.prev_day
-    @first_date..last_date
+    (@first_date..last_date).to_a
   end
 end
 
