@@ -22,11 +22,11 @@ class CalendarRenderer
   end
 
   def body_rows
-    to_string_row = -> week {
+    format_row = -> week {
       # if Rails => week.map {|date| date.try(:strftime, "%e") || "  " }.join(" ")
       week.map {|date| date.nil? ? "  " : date.strftime("%e") }.join(" ")
     }
-    weeks_in_month.map {|week| to_string_row.call(week) }
+    weeks_in_month.map {|week| format_row.call(week) }
   end
 
   def weeks_in_month
@@ -37,6 +37,7 @@ class CalendarRenderer
   end
 
   def dates_in_month
+    # if Rails => (@first_date..@first_date.end_of_month).to_a
     last_date = @first_date.next_month.prev_day
     (@first_date..last_date).to_a
   end
