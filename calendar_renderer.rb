@@ -14,8 +14,11 @@ class CalendarRenderer
   def header
     sun_to_sat = "Su Mo Tu We Th Fr Sa"
     month_year = first_date.strftime "%B %Y"
-    month_year_centered_and_trimmed = month_year.center(sun_to_sat.length).gsub(/\s+$/, '')
-    "#{month_year_centered_and_trimmed}\n#{sun_to_sat}"
+    "#{rtrim month_year.center(sun_to_sat.size)}\n#{sun_to_sat}"
+  end
+
+  def rtrim(str)
+    str.gsub(/\s+$/, '')
   end
 
   def body
