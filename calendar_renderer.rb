@@ -2,27 +2,31 @@ require 'date'
 
 class CalendarRenderer
   def initialize(year, month)
-    @first_date = Date.new year, month, 1
+    @first_date = Date.new(year, month, 1)
   end
 
   def render
-    "#{header}\n#{body}\n"
+    calendar_rows.join("\n")
   end
 
   private
 
-  def header
-    sun_to_sat = "Su Mo Tu We Th Fr Sa"
-    month_year = @first_date.strftime("%B %Y").center(sun_to_sat.size).rstrip
-    "#{month_year}\n#{sun_to_sat}"
+  def calendar_rows
+    header_rows + body_rows
   end
 
-  def body
+  def header_rows
+    sun_to_sat = "Su Mo Tu We Th Fr Sa"
+    month_year = @first_date.strftime("%B %Y").center(sun_to_sat.size).rstrip
+    [month_year, sun_to_sat]
+  end
+
+  def body_rows
     to_string_row = -> week {
       # if Rails => week.map {|date| date.try(:strftime, "%e") || "  " }.join(" ")
       week.map {|date| date.nil? ? "  " : date.strftime("%e") }.join(" ")
     }
-    weeks_in_month.map {|week| to_string_row.call(week) }.join("\n")
+    weeks_in_month.map {|week| to_string_row.call(week) }
   end
 
   def weeks_in_month
