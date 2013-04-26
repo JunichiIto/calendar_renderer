@@ -19,28 +19,18 @@ class CalendarRenderer
   end
 
   def body
-    ret = []
-    month_table.each do |week|
-      string_array = week.map do |date|
+    month_table.map {|weeks|
+      weeks.map {|date|
         date.nil? ? "  " : date.strftime("%e")
-      end
-      ret << "#{string_array.join(' ')}"
-    end
-    ret.join("\n")
+      }.join(" ")
+    }.join("\n")
   end
 
   def month_table
-    table = []
-    week = []
-    table << week
-    month_range.each do |date|
-      week[date.wday] = date
-      if (date.wday == 6)
-        week = []
-        table << week
-      end
-    end
-    table
+    month_range.to_a.inject([]) {|table, date|
+      table << [] if table.empty? or date.sunday?
+      table.tap {|t| t.last[date.wday] = date }
+    }
   end
 
   def month_range
