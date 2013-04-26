@@ -13,7 +13,7 @@ class CalendarRenderer
 
   def header
     sun_to_sat = "Su Mo Tu We Th Fr Sa"
-    month_year = first_date.strftime "%B %Y"
+    month_year = @first_date.strftime "%B %Y"
     rtrim = -> str { str.gsub(/\s+$/, '') }
     "#{rtrim.call(month_year.center(sun_to_sat.size))}\n#{sun_to_sat}"
   end
@@ -32,15 +32,8 @@ class CalendarRenderer
   end
 
   def month_range
-    first_date..last_date
-  end
-
-  def first_date
-    @first_date
-  end
-
-  def last_date
-    first_date.next_month.prev_day
+    last_date = @first_date.next_month.prev_day
+    @first_date..last_date
   end
 end
 
