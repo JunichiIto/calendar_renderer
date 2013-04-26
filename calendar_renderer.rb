@@ -5,7 +5,7 @@ class CalendarRenderer
     @first_date = Date.new(year, month, 1)
   end
 
-  def render
+  def to_s
     calendar_rows.join("\n")
   end
 
