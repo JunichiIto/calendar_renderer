@@ -28,7 +28,7 @@ class CalendarRenderer
   def weeks_in_month
     dates_in_month.inject([]) {|weeks, date|
       weeks << [] if weeks.empty? or date.sunday?
-      weeks.tap {|week| week.last[date.wday] = date }
+      weeks.tap {|weeks| weeks.last[date.wday] = date }
     }
   end
 
