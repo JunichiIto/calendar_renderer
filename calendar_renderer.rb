@@ -19,11 +19,11 @@ class CalendarRenderer
   end
 
   def body
-    month_table.map {|weeks|
-      weeks.map {|date|
-        date.nil? ? "  " : date.strftime("%e")
-      }.join(" ")
-    }.join("\n")
+    month_table.map {|week| week_to_string(week) }.join("\n")
+  end
+  
+  def week_to_string(week)
+    week.map {|date| date.nil? ? "  " : date.strftime("%e") }.join(" ")
   end
 
   def month_table
