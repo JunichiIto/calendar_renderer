@@ -11,7 +11,7 @@ Su Mo Tu We Th Fr Sa
 21 22 23 24 25 26 27
 28 29 30
 EOS
-  subject { CalendarRenderer.new(2013, 4).to_s }
+  subject { CalendarRenderer.render(2013, 4) }
 
   specify {
     expect(subject).to eq CALENDAR_APRIL_2013.rstrip
