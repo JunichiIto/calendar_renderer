@@ -18,9 +18,10 @@ class CalendarRenderer
   end
 
   def body
-    date_to_s = -> date { date.nil? ? "  " : date.strftime("%e") }
-    week_to_s = -> week { week.map {|date| date_to_s.call(date) }.join(" ") }
-    month_table.map {|week| week_to_s.call(week) }.join("\n")
+    to_string_line = -> week {
+      week.map {|date| date.nil? ? "  " : date.strftime("%e") }.join(" ")
+    }
+    month_table.map {|week| to_string_line.call(week) }.join("\n")
   end
 
   def month_table
