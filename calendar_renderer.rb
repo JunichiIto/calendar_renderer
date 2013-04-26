@@ -19,9 +19,9 @@ class CalendarRenderer
 
   def body
     to_string_row = -> week {
-      week.map {|date| date.nil? ? "  " : date.strftime("%e") }.join(" ")
       # if Rails
       # week.map {|date| date.try(:strftime, "%e") || "  " }.join(" ")
+      week.map {|date| date.nil? ? "  " : date.strftime("%e") }.join(" ")
     }
     weeks_in_month.map {|week| to_string_row.call(week) }.join("\n")
   end
