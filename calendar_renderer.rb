@@ -35,7 +35,7 @@ class CalendarRenderer
   end
 
   def last_date
-    Date.new(@first_date.year, @first_date.month, -1)
+    @first_date.next_month.prev_day
   end
 
   def full_length_calendar
