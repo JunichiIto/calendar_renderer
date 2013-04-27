@@ -27,9 +27,9 @@ class CalendarRenderer
   def calendar_rows(first_date)
     first_week_offset = WEEK_LENGTH - first_date.wday * DAY_LENGTH
     template = "a#{first_week_offset}" + "a#{WEEK_LENGTH}" * WEEK_COUNT_IN_MONTH
-    rows = this_month_calendar(first_date).unpack(template)
-    rows[0] = rows[0].rjust(WEEK_LENGTH)
-    rows
+    this_month_calendar(first_date).unpack(template).tap {|rows|
+      rows[0] = rows[0].rjust(WEEK_LENGTH)
+    }
   end
 
   def this_month_calendar(first_date)
