@@ -21,17 +21,19 @@ class CalendarRenderer
   def render(year, month)
     first_date = Date.new(year, month, 1)
     
-    first_week_offset = WEEK_LENGTH - first_date.wday * DAY_LENGTH
-    template = "a#{first_week_offset}" + "a#{WEEK_LENGTH}" * WEEK_COUNT_IN_MONTH
-    calendar_rows = this_month_calendar(year, month).unpack(template)
-    
-    calendar_rows[0] = calendar_rows[0].rjust(WEEK_LENGTH)
-    
-    render_header(first_date) + calendar_rows.join("\n")
+    render_header(first_date) + calendar_rows(first_date).join("\n")
   end
 
-  def this_month_calendar(year, month)
-    last_date = Date.new(year, month, -1)
+  def calendar_rows(first_date)
+    first_week_offset = WEEK_LENGTH - first_date.wday * DAY_LENGTH
+    template = "a#{first_week_offset}" + "a#{WEEK_LENGTH}" * WEEK_COUNT_IN_MONTH
+    rows = this_month_calendar(first_date).unpack(template)
+    rows[0] = rows[0].rjust(WEEK_LENGTH)
+    rows
+  end
+
+  def this_month_calendar(first_date)
+    last_date = Date.new(first_date.year, first_date.month, -1)
     full_length_calendar = MONTH_RANGE.to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
     this_month_length = last_date.day * DAY_LENGTH - 1
     full_length_calendar[0..this_month_length]
