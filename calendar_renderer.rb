@@ -28,8 +28,8 @@ class CalendarRenderer
     first_week_offset = WEEK_LENGTH - first_date.wday * DAY_LENGTH
     
     # Last Day later delete dafault_cal
-    month_length = last_date.day * DAY_LENGTH - 1
-    this_month_calendar = full_length_calendar[0..month_length]
+    this_month_length = last_date.day * DAY_LENGTH - 1
+    this_month_calendar = full_length_calendar[0..this_month_length]
     
     # Generate Calendar Array
     template = "a#{first_week_offset}" + "a#{WEEK_LENGTH}" * WEEK_COUNT_IN_MONTH
