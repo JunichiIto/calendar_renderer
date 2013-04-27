@@ -4,6 +4,7 @@ class CalendarRenderer
   DAY_LENGTH = 3
   WEEK_LENGTH = DAY_LENGTH * 7
   INDENT_LENGTH = 1
+  MONTH_RANGE = 1..31
 
   def initialize(year, month)
     @year = year
@@ -22,7 +23,7 @@ class CalendarRenderer
     t = Date.new(year,month) 
     
     # Calendar day's String is 93 bytes.
-    default_cal = "  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31"
+    default_cal = MONTH_RANGE.to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
     
     # Get the Month's Fist Day
     first_day = Date.new(t.year, t.month, 1)
