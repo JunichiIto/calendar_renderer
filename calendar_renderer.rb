@@ -21,9 +21,7 @@ class CalendarRenderer
     default_cal = MONTH_RANGE.to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
     
     first_date = Date.new(year, month, 1)
-    
     last_date = Date.new(year, month, -1)
-    
     
     # First Week Offset bytes
     offset = WEEK_LENGTH - (first_date.strftime("%w").to_i * DAY_LENGTH)
@@ -38,18 +36,12 @@ class CalendarRenderer
     cal[0] = cal[0].rjust(WEEK_LENGTH)
     
     # Print Calendar
-    ret = ''
-    ret += render_header(first_date)
-    ret += cal.join("\n")
-
-    ret
+    render_header(first_date) + cal.join("\n")
   end
 
   def render_header(first_date)
-    ret = ''
-    ret += first_date.strftime("%B %Y").center(WEEK_LENGTH + INDENT_LENGTH).rstrip
-    ret += "\n"
-    ret += " Su Mo Tu We Th Fr Sa\n"
-    ret
+    month_year = first_date.strftime("%B %Y").center(WEEK_LENGTH + INDENT_LENGTH).rstrip
+    sun_to_sat = " Su Mo Tu We Th Fr Sa"
+    "#{month_year}\n#{sun_to_sat}\n"
   end
 end
