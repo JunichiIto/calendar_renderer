@@ -18,21 +18,12 @@ class CalendarRenderer
   private
 
   def render(year, month)
-    ret = ''
-    
-    # Calendar day's String is 93 bytes.
     default_cal = MONTH_RANGE.to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
     
-    # Get the Month's Fist Day
     first_date = Date.new(year, month, 1)
     
-    # Get the Month's Last Day
     last_date = Date.new(year, month, -1)
     
-    # Print Header
-    ret += first_date.strftime("%B %Y").center(WEEK_LENGTH + INDENT_LENGTH).rstrip
-    ret += "\n"
-    ret += " Su Mo Tu We Th Fr Sa\n"
     
     # First Week Offset bytes
     offset = WEEK_LENGTH - (first_date.strftime("%w").to_i * DAY_LENGTH)
@@ -47,8 +38,18 @@ class CalendarRenderer
     cal[0] = cal[0].rjust(WEEK_LENGTH)
     
     # Print Calendar
+    ret = ''
+    ret += render_header(first_date)
     ret += cal.join("\n")
 
+    ret
+  end
+
+  def render_header(first_date)
+    ret = ''
+    ret += first_date.strftime("%B %Y").center(WEEK_LENGTH + INDENT_LENGTH).rstrip
+    ret += "\n"
+    ret += " Su Mo Tu We Th Fr Sa\n"
     ret
   end
 end
