@@ -26,10 +26,10 @@ class CalendarRenderer
     default_cal = MONTH_RANGE.to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
     
     # Get the Month's Fist Day
-    first_day = Date.new(t.year, t.month, 1)
+    first_date = Date.new(t.year, t.month, 1)
     
     # Get the Month's Last Day
-    last_day = Date.new(t.year, t.month, -1).day
+    last_date = Date.new(t.year, t.month, -1)
     
     # Print Header
     ret += t.strftime("%B %Y").center(WEEK_LENGTH + INDENT_LENGTH).rstrip
@@ -37,10 +37,10 @@ class CalendarRenderer
     ret += " Su Mo Tu We Th Fr Sa\n"
     
     # First Week Offset bytes
-    offset = WEEK_LENGTH - (first_day.strftime("%w").to_i * DAY_LENGTH)
+    offset = WEEK_LENGTH - (first_date.strftime("%w").to_i * DAY_LENGTH)
     
     # Last Day later delete dafault_cal
-    default_cal.slice!(last_day * DAY_LENGTH, default_cal.length - last_day * DAY_LENGTH)
+    default_cal.slice!(last_date.day * DAY_LENGTH, default_cal.length - last_date.day * DAY_LENGTH)
     
     # Generate Calendar Array
     cal = default_cal.unpack("a#{offset}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a*")
