@@ -15,13 +15,16 @@ class CalendarRenderer
   private
 
   def body_rows
-    week_count_in_month = 5
-    first_week_offset = WEEK_LENGTH - @first_date.wday * DAY_LENGTH
-    split_template = "a#{first_week_offset}" + "a#{WEEK_LENGTH}" * week_count_in_month
+    target_month_calendar.unpack(split_template).tap {|rows| rows[0] = rows[0].rjust(WEEK_LENGTH) }
+  end
 
-    target_month_calendar.unpack(split_template).tap {|rows|
-      rows[0] = rows[0].rjust(WEEK_LENGTH)
-    }
+  def split_template
+    week_count_in_month = 5
+    "a#{first_week_offset}" + "a#{WEEK_LENGTH}" * week_count_in_month
+  end
+
+  def first_week_offset
+    WEEK_LENGTH - @first_date.wday * DAY_LENGTH
   end
 
   def target_month_calendar
@@ -41,9 +44,11 @@ class CalendarRenderer
   end
 
   def header_rows
+    [month_year, " Su Mo Tu We Th Fr Sa"]
+  end
+
+  def month_year
     indent_length = 1
-    month_year = @first_date.strftime("%B %Y").center(WEEK_LENGTH + indent_length).rstrip
-    sun_to_sat = " Su Mo Tu We Th Fr Sa"
-    [month_year, sun_to_sat]
+    @first_date.strftime("%B %Y").center(WEEK_LENGTH + indent_length).rstrip
   end
 end
