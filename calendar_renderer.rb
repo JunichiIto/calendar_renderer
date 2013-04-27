@@ -31,13 +31,13 @@ class CalendarRenderer
     this_month_calendar = full_length_calendar[0..month_length]
     
     # Generate Calendar Array
-    cal = this_month_calendar.unpack("a#{offset}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a*")
+    calendar_rows = this_month_calendar.unpack("a#{offset}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a*")
     
     # First Week -> slide
-    cal[0] = cal[0].rjust(WEEK_LENGTH)
+    calendar_rows[0] = calendar_rows[0].rjust(WEEK_LENGTH)
     
     # Print Calendar
-    render_header(first_date) + cal.join("\n")
+    render_header(first_date) + calendar_rows.join("\n")
   end
 
   def render_header(first_date)
