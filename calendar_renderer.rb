@@ -24,21 +24,16 @@ class CalendarRenderer
     first_date = Date.new(year, month, 1)
     last_date = Date.new(year, month, -1)
     
-    # First Week Offset bytes
     first_week_offset = WEEK_LENGTH - first_date.wday * DAY_LENGTH
     
-    # Last Day later delete dafault_cal
     this_month_length = last_date.day * DAY_LENGTH - 1
     this_month_calendar = full_length_calendar[0..this_month_length]
     
-    # Generate Calendar Array
     template = "a#{first_week_offset}" + "a#{WEEK_LENGTH}" * WEEK_COUNT_IN_MONTH
     calendar_rows = this_month_calendar.unpack(template)
     
-    # First Week -> slide
     calendar_rows[0] = calendar_rows[0].rjust(WEEK_LENGTH)
     
-    # Print Calendar
     render_header(first_date) + calendar_rows.join("\n")
   end
 
