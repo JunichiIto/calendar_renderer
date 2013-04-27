@@ -5,6 +5,7 @@ class CalendarRenderer
   WEEK_LENGTH = DAY_LENGTH * 7
   INDENT_LENGTH = 1
   MONTH_RANGE = 1..31
+  WEEK_COUNT_IN_MONTH = 5
 
   def initialize(year, month)
     @year = year
@@ -31,7 +32,8 @@ class CalendarRenderer
     this_month_calendar = full_length_calendar[0..month_length]
     
     # Generate Calendar Array
-    calendar_rows = this_month_calendar.unpack("a#{offset}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a*")
+    template = "a#{offset}" + "a#{WEEK_LENGTH}" * WEEK_COUNT_IN_MONTH
+    calendar_rows = this_month_calendar.unpack(template)
     
     # First Week -> slide
     calendar_rows[0] = calendar_rows[0].rjust(WEEK_LENGTH)
