@@ -12,12 +12,12 @@ class CalendarRenderer
   end
 
   def to_s
-    (header_rows + calendar_rows).join("\n")
+    (header_rows + body_rows).join("\n")
   end
 
   private
 
-  def calendar_rows
+  def body_rows
     first_week_offset = WEEK_LENGTH - @first_date.wday * DAY_LENGTH
     template = "a#{first_week_offset}" + "a#{WEEK_LENGTH}" * WEEK_COUNT_IN_MONTH
 
