@@ -19,16 +19,16 @@ class CalendarRenderer
     first_week_offset = WEEK_LENGTH - @first_date.wday * DAY_LENGTH
     split_template = "a#{first_week_offset}" + "a#{WEEK_LENGTH}" * week_count_in_month
 
-    this_month_calendar.unpack(split_template).tap {|rows|
+    target_month_calendar.unpack(split_template).tap {|rows|
       rows[0] = rows[0].rjust(WEEK_LENGTH)
     }
   end
 
-  def this_month_calendar
-    full_length_calendar[0..this_month_length]
+  def target_month_calendar
+    full_length_calendar[0..target_month_length]
   end
 
-  def this_month_length
+  def target_month_length
     last_date.day * DAY_LENGTH - 1
   end
 
