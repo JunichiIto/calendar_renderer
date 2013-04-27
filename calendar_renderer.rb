@@ -2,9 +2,9 @@ require 'date'
 
 class CalendarRenderer
   def self.render(year, month)
+    first_date = Date.new(year, month, 1)
     day_length = 3
     week_length = day_length * 7
-    first_date = Date.new(year, month, 1)
     indent_length = 1
     week_count_in_month = 5
 
