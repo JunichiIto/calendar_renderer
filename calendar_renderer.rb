@@ -27,9 +27,8 @@ class CalendarRenderer
     offset = WEEK_LENGTH - first_date.wday * DAY_LENGTH
     
     # Last Day later delete dafault_cal
-    start = last_date.day * DAY_LENGTH
-    length = default_cal.length - start
-    default_cal.slice!(start, length)
+    month_length = last_date.day * DAY_LENGTH - 1
+    default_cal = default_cal[0..month_length]
     
     # Generate Calendar Array
     cal = default_cal.unpack("a#{offset}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a*")
