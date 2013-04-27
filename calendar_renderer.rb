@@ -2,44 +2,50 @@ require 'date'
 
 class CalendarRenderer
   def initialize(year, month)
-    @first_date = Date.new(year, month, 1)
+    @year = year
+    @month = month
   end
 
   def to_s
-    calendar_rows.join("\n")
+    render(@year, @month)
   end
 
   private
 
-  def calendar_rows
-    header_rows + body_rows
-  end
+  def render(year, month)
+    ret = ''
+    
+    t = Date.new(year,month) 
+    
+    # Calendar day's String is 93 bytes.
+    default_cal = "  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31"
+    
+    # Get the Month's Fist Day
+    first_day = Date.new(t.year, t.month, 1)
+    
+    # Get the Month's Last Day
+    last_day = Date.new(t.year, t.month, -1).day
+    
+    # Print Header
+    ret += t.strftime("%B %Y").center(23).rstrip
+    ret += "\n"
+    ret += " Su Mo Tu We Th Fr Sa\n"
+    
+    # First Week Offset bytes
+    offset = 21 - (first_day.strftime("%w").to_i * 3)
+    
+    # Last Day later delete dafault_cal
+    default_cal.slice!(last_day * 3, default_cal.length - last_day * 3)
+    
+    # Generate Calendar Array
+    cal = default_cal.unpack("a#{offset}a21a21a21a21a*")
+    
+    # First Week -> slide
+    cal[0] = cal[0].rjust(21)
+    
+    # Print Calendar
+    ret += cal.join("\n")
 
-  def header_rows
-    sun_to_sat = "Su Mo Tu We Th Fr Sa"
-    month_year = @first_date.strftime("%B %Y").center(sun_to_sat.size).rstrip
-    [month_year, sun_to_sat]
-  end
-
-  def body_rows
-    format_row = -> week {
-      # if Rails => week.map {|date| date.try(:strftime, "%e") || "  " }.join(" ")
-      week.map {|date| date.nil? ? "  " : date.strftime("%e") }.join(" ")
-    }
-    weeks_in_month.map {|week| format_row.call(week) }
-  end
-
-  def weeks_in_month
-    dates_in_month.inject([]) {|weeks, date|
-      weeks << [] if weeks.empty? or date.sunday?
-      weeks.tap {|weeks| weeks.last[date.wday] = date }
-    }
-  end
-
-  def dates_in_month
-    # if Rails => (@first_date..@first_date.end_of_month).to_a
-    last_date = @first_date.next_month.prev_day
-    (@first_date..last_date).to_a
+    ret
   end
 end
-
