@@ -1,6 +1,10 @@
 require 'date'
 
 class CalendarRenderer
+  DAY_LENGTH = 3
+  WEEK_LENGTH = DAY_LENGTH * 7
+  INDENT_LENGTH = 1
+
   def initialize(year, month)
     @year = year
     @month = month
@@ -27,21 +31,21 @@ class CalendarRenderer
     last_day = Date.new(t.year, t.month, -1).day
     
     # Print Header
-    ret += t.strftime("%B %Y").center(23).rstrip
+    ret += t.strftime("%B %Y").center(WEEK_LENGTH + INDENT_LENGTH).rstrip
     ret += "\n"
     ret += " Su Mo Tu We Th Fr Sa\n"
     
     # First Week Offset bytes
-    offset = 21 - (first_day.strftime("%w").to_i * 3)
+    offset = WEEK_LENGTH - (first_day.strftime("%w").to_i * DAY_LENGTH)
     
     # Last Day later delete dafault_cal
-    default_cal.slice!(last_day * 3, default_cal.length - last_day * 3)
+    default_cal.slice!(last_day * DAY_LENGTH, default_cal.length - last_day * DAY_LENGTH)
     
     # Generate Calendar Array
-    cal = default_cal.unpack("a#{offset}a21a21a21a21a*")
+    cal = default_cal.unpack("a#{offset}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a*")
     
     # First Week -> slide
-    cal[0] = cal[0].rjust(21)
+    cal[0] = cal[0].rjust(WEEK_LENGTH)
     
     # Print Calendar
     ret += cal.join("\n")
