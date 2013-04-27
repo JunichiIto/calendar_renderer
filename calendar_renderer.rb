@@ -20,19 +20,17 @@ class CalendarRenderer
   def render(year, month)
     ret = ''
     
-    t = Date.new(year,month) 
-    
     # Calendar day's String is 93 bytes.
     default_cal = MONTH_RANGE.to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
     
     # Get the Month's Fist Day
-    first_date = Date.new(t.year, t.month, 1)
+    first_date = Date.new(year, month, 1)
     
     # Get the Month's Last Day
-    last_date = Date.new(t.year, t.month, -1)
+    last_date = Date.new(year, month, -1)
     
     # Print Header
-    ret += t.strftime("%B %Y").center(WEEK_LENGTH + INDENT_LENGTH).rstrip
+    ret += first_date.strftime("%B %Y").center(WEEK_LENGTH + INDENT_LENGTH).rstrip
     ret += "\n"
     ret += " Su Mo Tu We Th Fr Sa\n"
     
