@@ -18,7 +18,7 @@ class CalendarRenderer
   private
 
   def render(year, month)
-    default_cal = MONTH_RANGE.to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
+    full_length_calendar = MONTH_RANGE.to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
     
     first_date = Date.new(year, month, 1)
     last_date = Date.new(year, month, -1)
@@ -28,10 +28,10 @@ class CalendarRenderer
     
     # Last Day later delete dafault_cal
     month_length = last_date.day * DAY_LENGTH - 1
-    default_cal = default_cal[0..month_length]
+    full_length_calendar = full_length_calendar[0..month_length]
     
     # Generate Calendar Array
-    cal = default_cal.unpack("a#{offset}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a*")
+    cal = full_length_calendar.unpack("a#{offset}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a#{WEEK_LENGTH}a*")
     
     # First Week -> slide
     cal[0] = cal[0].rjust(WEEK_LENGTH)
