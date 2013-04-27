@@ -24,7 +24,7 @@ class CalendarRenderer
     last_date = Date.new(year, month, -1)
     
     # First Week Offset bytes
-    offset = WEEK_LENGTH - (first_date.strftime("%w").to_i * DAY_LENGTH)
+    offset = WEEK_LENGTH - (first_date.wday * DAY_LENGTH)
     
     # Last Day later delete dafault_cal
     default_cal.slice!(last_date.day * DAY_LENGTH, default_cal.length - last_date.day * DAY_LENGTH)
