@@ -27,10 +27,19 @@ class CalendarRenderer
   end
 
   def this_month_calendar
-    last_date = Date.new(@first_date.year, @first_date.month, -1)
-    full_length_calendar = MONTH_RANGE.to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
-    this_month_length = last_date.day * DAY_LENGTH - 1
     full_length_calendar[0..this_month_length]
+  end
+
+  def this_month_length
+    last_date.day * DAY_LENGTH - 1
+  end
+
+  def last_date
+    Date.new(@first_date.year, @first_date.month, -1)
+  end
+
+  def full_length_calendar
+    MONTH_RANGE.to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
   end
 
   def header_rows
