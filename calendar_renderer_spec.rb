@@ -16,4 +16,98 @@ EOS
   specify {
     expect(subject).to eq CALENDAR_APRIL_2013.rstrip
   }
+
+  CALENDAR_2013 = <<EOS
+     January 2013
+ Su Mo Tu We Th Fr Sa
+        1  2  3  4  5
+  6  7  8  9 10 11 12
+ 13 14 15 16 17 18 19
+ 20 21 22 23 24 25 26
+ 27 28 29 30 31
+    February 2013
+ Su Mo Tu We Th Fr Sa
+                 1  2
+  3  4  5  6  7  8  9
+ 10 11 12 13 14 15 16
+ 17 18 19 20 21 22 23
+ 24 25 26 27 28
+      March 2013
+ Su Mo Tu We Th Fr Sa
+                 1  2
+  3  4  5  6  7  8  9
+ 10 11 12 13 14 15 16
+ 17 18 19 20 21 22 23
+ 24 25 26 27 28 29 30
+ 31
+      April 2013
+ Su Mo Tu We Th Fr Sa
+     1  2  3  4  5  6
+  7  8  9 10 11 12 13
+ 14 15 16 17 18 19 20
+ 21 22 23 24 25 26 27
+ 28 29 30
+       May 2013
+ Su Mo Tu We Th Fr Sa
+           1  2  3  4
+  5  6  7  8  9 10 11
+ 12 13 14 15 16 17 18
+ 19 20 21 22 23 24 25
+ 26 27 28 29 30 31
+      June 2013
+ Su Mo Tu We Th Fr Sa
+                    1
+  2  3  4  5  6  7  8
+  9 10 11 12 13 14 15
+ 16 17 18 19 20 21 22
+ 23 24 25 26 27 28 29
+ 30
+      July 2013
+ Su Mo Tu We Th Fr Sa
+     1  2  3  4  5  6
+  7  8  9 10 11 12 13
+ 14 15 16 17 18 19 20
+ 21 22 23 24 25 26 27
+ 28 29 30 31
+     August 2013
+ Su Mo Tu We Th Fr Sa
+              1  2  3
+  4  5  6  7  8  9 10
+ 11 12 13 14 15 16 17
+ 18 19 20 21 22 23 24
+ 25 26 27 28 29 30 31
+    September 2013
+ Su Mo Tu We Th Fr Sa
+  1  2  3  4  5  6  7
+  8  9 10 11 12 13 14
+ 15 16 17 18 19 20 21
+ 22 23 24 25 26 27 28
+ 29 30
+     October 2013
+ Su Mo Tu We Th Fr Sa
+        1  2  3  4  5
+  6  7  8  9 10 11 12
+ 13 14 15 16 17 18 19
+ 20 21 22 23 24 25 26
+ 27 28 29 30 31
+    November 2013
+ Su Mo Tu We Th Fr Sa
+                 1  2
+  3  4  5  6  7  8  9
+ 10 11 12 13 14 15 16
+ 17 18 19 20 21 22 23
+ 24 25 26 27 28 29 30
+    December 2013
+ Su Mo Tu We Th Fr Sa
+  1  2  3  4  5  6  7
+  8  9 10 11 12 13 14
+ 15 16 17 18 19 20 21
+ 22 23 24 25 26 27 28
+ 29 30 31
+EOS
+
+  specify {
+    calendar = (1..12).to_a.map {|i| CalendarRenderer.new(2013, i).to_s }.join("\n")
+    expect(calendar).to eq CALENDAR_2013.rstrip
+  }
 end
