@@ -20,14 +20,14 @@ class CalendarRenderer
   end
 
   def body_text
-    first_week_offset + target_month_calendar
+    first_week_offset + calendar_text
   end
 
   def first_week_offset
     ' ' * @first_date.wday * DAY_LENGTH
   end
 
-  def target_month_calendar
+  def calendar_text
     last_day = @first_date.next_month.prev_day.day
     (1..last_day).to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
   end
