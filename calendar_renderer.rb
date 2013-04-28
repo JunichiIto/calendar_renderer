@@ -15,8 +15,8 @@ class CalendarRenderer
   private
 
   def body_rows
-    split_regex = Regexp.new(".{#{DAY_LENGTH},#{WEEK_LENGTH}}")
-    body_text.scan(split_regex)
+    split_pattern = /.{#{DAY_LENGTH},#{WEEK_LENGTH}}/
+    body_text.scan(split_pattern)
   end
 
   def body_text
