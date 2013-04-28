@@ -14,6 +14,6 @@ EOS
   subject { CalendarRenderer.new(2013, 4).to_s }
 
   specify {
-    expect(subject).to eq CALENDAR_APRIL_2013
+    expect(subject).to eq CALENDAR_APRIL_2013.rstrip
   }
 end

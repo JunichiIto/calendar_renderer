@@ -15,32 +15,23 @@ class CalendarRenderer
   private
 
   def body_rows
-    target_month_calendar.unpack(split_template).tap {|rows| rows[0] = rows[0].rjust(WEEK_LENGTH) }
+    target_month_calendar.scan(sprit_regex)
   end
 
-  def split_template
-    week_count_in_month = 5
-    "a#{first_week_offset}" + "a#{WEEK_LENGTH}" * week_count_in_month
-  end
-
-  def first_week_offset
-    WEEK_LENGTH - @first_date.wday * DAY_LENGTH
+  def sprit_regex
+    Regexp.new(".{#{DAY_LENGTH},#{WEEK_LENGTH}}")
   end
 
   def target_month_calendar
-    full_length_calendar[0..target_month_length]
+    first_week_offset + (1..last_date.day).to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
   end
 
-  def target_month_length
-    last_date.day * DAY_LENGTH - 1
+  def first_week_offset
+    ' ' * @first_date.wday * DAY_LENGTH
   end
 
   def last_date
     @first_date.next_month.prev_day
-  end
-
-  def full_length_calendar
-    (1..31).to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
   end
 
   def header_rows
