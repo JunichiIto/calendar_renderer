@@ -29,15 +29,23 @@ class CalendarRenderer
 
   def calendar_text
     last_day = @first_date.next_month.prev_day.day
-    (1..last_day).to_a.map{|i| i.to_s.rjust(DAY_LENGTH) }.join
+    rjust_all 1..last_day
   end
 
   def header_rows
-    [month_year, " Su Mo Tu We Th Fr Sa"]
+    [month_year, sun_to_sat]
   end
 
   def month_year
     indent_length = 1
     @first_date.strftime("%B %Y").center(WEEK_LENGTH + indent_length).rstrip
+  end
+
+  def sun_to_sat
+    rjust_all %w(Su Mo Tu We Th Fr Sa)
+  end
+
+  def rjust_all(enum)
+    enum.to_a.map{|e| e.to_s.rjust(DAY_LENGTH) }.join
   end
 end
