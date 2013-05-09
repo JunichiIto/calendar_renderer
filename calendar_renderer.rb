@@ -37,9 +37,9 @@ class CalendarRenderer
   end
 
   def dates_in_month
-    # if Rails => (@first_date..@first_date.end_of_month).to_a
+    # if Rails => (@first_date..@first_date.end_of_month)
     last_date = @first_date.next_month.prev_day
-    (@first_date..last_date).to_a
+    (@first_date..last_date)
   end
 end
 
