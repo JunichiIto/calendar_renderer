@@ -46,6 +46,6 @@ class CalendarRenderer
   end
 
   def rjust_all(enum)
-    enum.to_a.map{|e| e.to_s.rjust(DAY_LENGTH) }.join
+    enum.map{|e| e.to_s.rjust(DAY_LENGTH) }.join
   end
 end
